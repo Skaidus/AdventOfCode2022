@@ -17,9 +17,9 @@ fn main() {
         let mut sum = 0;
         for line in lines {
             if let Ok(ip) = line {
-                let a : Vec<&str> = ip.split_whitespace().collect();
-                let enemy = a[0].chars().nth(0).unwrap() as i32 - 65i32;
-                let you = a[1].chars().nth(0).unwrap() as i32 - 88i32;
+                let bytes = ip.as_bytes();
+                let enemy =  (bytes[0] - b'A') as i32;
+                let you =  (bytes[2] - b'X') as i32;
                 sum += (enemy + you - 1).rem_euclid(3i32) + 1 + 3*you;
             }
         }
