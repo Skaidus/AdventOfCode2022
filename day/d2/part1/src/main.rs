@@ -12,7 +12,7 @@ where P: AsRef<Path>, {
 
 fn main() {
     // File hosts must exist in current path before this produces output
-    if let Ok(lines) = read_lines("./input.txt") {
+    if let Ok(lines) = read_lines("../input.txt") {
         // Consumes the iterator, returns an (Optional) String
         let mut sum = 0;
         for line in lines {
