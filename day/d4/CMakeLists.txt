@@ -6,3 +6,4 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/input.txt
         ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 add_executable(d4p1 part1.c)
+add_executable(d4p2 part2.c)
