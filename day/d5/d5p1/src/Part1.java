@@ -2,11 +2,9 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
-public class Main {
+public class Part1 {
 
     public static void main(String[] args) {
         try {
@@ -34,10 +32,11 @@ public class Main {
                 }
             }
             OrderParser p = new OrderParser();
+            myReader.nextLine();
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 p.parseOrder(data);
-                operator.operate(p.blocks, p.from, p.to);
+                operator.operate(p.blocks, p.from-1, p.to-1);
             }
             myReader.close();
             System.out.println(operator.getTop());

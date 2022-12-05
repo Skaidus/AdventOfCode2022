@@ -10,7 +10,7 @@ public class OrderParser {
         if (m.find()){
             blocks = Integer.parseInt(m.group(1));
             from = Integer.parseInt(m.group(2));
-            to = blocks = Integer.parseInt(m.group(3));
+            to =  Integer.parseInt(m.group(3));
         }
     }
 }

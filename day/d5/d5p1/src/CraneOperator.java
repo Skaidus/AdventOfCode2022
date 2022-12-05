@@ -22,7 +22,7 @@ public class CraneOperator implements ICraneOperator {
     @Override
     public String getTop() {
         StringBuilder top = new StringBuilder();
-        for (Stack<Character> stack : stacks) if (stack.isEmpty()) top.append(stack.pop());
+        for (Stack<Character> stack : stacks) if (!stack.isEmpty()) top.append(stack.pop());
         return top.toString();
     }
 }
