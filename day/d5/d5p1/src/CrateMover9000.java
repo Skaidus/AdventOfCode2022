@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class CraneOperator implements ICraneOperator {
-    private ArrayList<Stack<Character>> stacks;
-    public CraneOperator(int n_stacks){
+public class CrateMover9000 implements ICrateMover {
+    protected ArrayList<Stack<Character>> stacks;
+    public CrateMover9000(int n_stacks){
         this.stacks = new ArrayList<>(n_stacks);
         for(int i = 0; i< n_stacks; i++) this.stacks.add(new Stack<>());
     }
