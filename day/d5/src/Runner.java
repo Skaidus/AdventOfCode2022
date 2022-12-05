@@ -7,7 +7,7 @@ public class Runner {
 
     public static void run(boolean is9001){
         try {
-            File myObj = new File("../input.txt");
+            File myObj = new File("input.txt");
             Scanner myReader = new Scanner(myObj);
             Stack<String> buffer =  new Stack<>();
             int n_stacks = 0;
