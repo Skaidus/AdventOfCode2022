@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package model;
+
 import java.util.Stack;
 
 public class CrateMover9001 extends CrateMover9000 {
