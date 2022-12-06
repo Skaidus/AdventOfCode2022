@@ -1,6 +1,6 @@
 package main
 
 func main() {
-	run(4)
-	run(14)
+	findStart(4)  // Part 1
+	findStart(14) // Part 2
 }

@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func run(size int) {
+func findStart(size int) {
 	line, err := os.ReadFile("input.txt")
 	if err != nil {
 		panic("Could not open file")
