@@ -10,7 +10,7 @@ func (h *HeaderStack) Push(top byte) {
 	for i := 1; i < len(buffer); i++ {
 		buffer[i-1] = buffer[i]
 	}
-	buffer[3] = top
+	buffer[len(buffer)-1] = top
 	h.Pushes++
 	return
 }
