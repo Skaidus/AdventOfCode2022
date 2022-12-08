@@ -1,44 +1,69 @@
 #include <stdio.h>
-#include<stdlib.h>
 
 struct Tree {
     char height;
-    unsigned short int seen;
+    int seen;
 };
 
-inline void check_tree(const unsigned int i, const unsigned int j,  struct Tree trees[]){
-
-}
+int const grid_size = 99;
 
 int main() {
-    unsigned int sum = 0, n_line = 0, i = 0;
-    char line[99];
-    struct Tree grid[99][99];
-    FILE *f = fopen("input.txt", "r");
+    int sum = 0, n_line = 0;
+    int i;
+    char line[grid_size+1];
+    struct Tree grid[grid_size][grid_size];
+    FILE *f = fopen("./input.txt", "r");
     char max_height;
-    while((fgets(line, 99, f)) != NULL) {
-        for(i = 0; i < 99; i++) {
+    while((fgets(line, grid_size+1, f)) != NULL) {
+        for(i = 0; i < grid_size; i++) {
             grid[n_line][i].height = line[i];
             grid[n_line][i].seen = 0;
         }
         max_height = '0';
-        for(i = 0; i < 99; i++) {
+        for(i = 0; i < grid_size; i++) {
             if(grid[n_line][i].height > max_height) {
-                sum ++;
                 max_height = grid[n_line][i].height;
-                if(grid[n_line][i].seen == 0) grid[n_line][i].seen = 1;
+                if(grid[n_line][i].seen == 0) {
+                    grid[n_line][i].seen = 1;
+                    sum ++;
+                }
             }
         }
-        for(i = 0; i < 99; i++) {
+        max_height = '0';
+        for(i = grid_size-1; i >= 0; i--) {
             if(grid[n_line][i].height > max_height) {
-                sum ++;
                 max_height = grid[n_line][i].height;
-                if(grid[n_line][i].seen == 0) grid[n_line][i].seen = 1;
+                if(grid[n_line][i].seen == 0) {
+                    grid[n_line][i].seen = 1;
+                    sum ++;
+                }
             }
         }
-        sscanf(line, "%d-%d,%d-%d",&i1.begin, &i1.end, &i2.begin, &i2.end);
-        if(contains(&i1, &i2)) sum++;
     }
+    int j;
+    for(j = 0; j < grid_size; j++) {
+        max_height = '0';
+        for(i = 0; i < grid_size; i++) {
+            if(grid[i][j].height > max_height) {
+                max_height = grid[i][j].height;
+                if(grid[i][j].seen == 0) {
+                    grid[i][j].seen = 1;
+                    sum ++;
+                }
+            }
+        }
+        max_height = '0';
+        for(i = grid_size-1; i >= 0; i--) {
+            if(grid[i][j].height > max_height) {
+                max_height = grid[i][j].height;
+                if(grid[i][j].seen == 0) {
+                    grid[i][j].seen = 1;
+                    sum ++;
+                }
+            }
+        }
+    }
+
     fclose(f);
     printf("Total: %d\n", sum);
     return 0;
