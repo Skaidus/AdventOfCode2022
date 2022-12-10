@@ -38,7 +38,9 @@ int main() {
     const int size_j = max_j - min_j + 2;
     int grid[size_i][size_j];
     for (int i = 0; i < size_i; i++) {
-        for (int j = 0; j < size_j; j++) grid[i][j] = 0;
+        for (int j = 0; j < size_j; j++) {
+            grid[i][j] = 0;
+        }
     }
     grid[-min_i][-min_j] = 1;
     struct Point T, H, Hp;
