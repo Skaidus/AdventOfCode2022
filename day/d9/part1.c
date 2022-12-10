@@ -10,35 +10,47 @@ int main() {
     char dir;
     int amount;
     FILE *f = fopen("input.txt", "r");
-    int max_i = 1, max_j = 1;
-    while((fgets(line, 6, f)) != NULL) {
+    int max_i = 1, min_i = 0;
+    int max_j = 1, min_j = 0;
+    int curr_i = 0, curr_j = 0;
+    while((fgets(line, 8, f)) != NULL) {
         sscanf(line, "%c %d", &dir, &amount);
         switch (dir) {
             case 'U':
-                max_i++;
+                curr_i+=amount;
+                if(curr_i >= max_i) max_i = curr_i;
                 break;
             case 'D':
-                max_i--;
+                curr_i-=amount;
+                if(curr_i <= min_i) min_i = curr_i;
                 break;
             case 'L':
-                max_j--;
+                curr_j-=amount;
+                if(curr_j <= min_j) min_j = curr_j;
                 break;
             default:
-                max_j++;
+                curr_j+=amount;
+                if(curr_j >= max_j) max_j = curr_j;
                 break;
         }
     }
-    int grid[max_i][max_j];
-    for (int i = 0; i < max_i; i++) {
-        for (int j = 0; j < max_j; j++) grid[i][j] = 0;
+    const int size_i = max_i - min_i + 2;
+    const int size_j = max_j - min_j + 2;
+    int grid[size_i][size_j];
+    for (int i = 0; i < size_i; i++) {
+        for (int j = 0; j < size_j; j++) grid[i][j] = 0;
     }
-    grid[0][0] = 1;
+    grid[-min_i][-min_j] = 1;
     struct Point T, H, Hp;
     int sum = 1;
     int di, dj;
-    T.i = T.j = H.i = H.j = 0;
-    while((fgets(line, 6, f)) != NULL) {
-        sscanf(line, "%c %d", dir, amount);
+    T.i = H.i = -min_i;
+    T.j = H.j = -min_j;
+    rewind(f);
+    int line_count = 0;
+    while((fgets(line, 8, f)) != NULL) {
+        line_count++;
+        sscanf(line, "%c %d", &dir, &amount);
         switch (dir) {
             case 'U':
                 di = 1; dj = 0;
