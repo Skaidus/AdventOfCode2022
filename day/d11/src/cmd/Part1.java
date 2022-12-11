@@ -20,34 +20,26 @@ public class Part1 {
             ArrayList<Monkey> jungle = new ArrayList<>();
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                switch (line_count){
-                    case 0:
-                        jungle.add(new Monkey());
-                        break;
-                    case 1:
+                switch (line_count) {
+                    case 0 -> jungle.add(new Monkey());
+                    case 1 -> {
                         list = data.substring(18).split(", ");
-                        for(String s : list) jungle.get(jungle.size()-1).receive_item(Integer.parseInt(s));
-                        break;
-                    case 2:
+                        for (String s : list) jungle.get(jungle.size() - 1).receive_item(Integer.parseInt(s));
+                    }
+                    case 2 -> {
                         list = data.substring(19).split(" ");
-                        int v1 = (list[0].equals("old"))? 0: Integer.parseInt(list[0]);
+                        int v1 = (list[0].equals("old")) ? 0 : Integer.parseInt(list[0]);
                         char op = list[1].charAt(0);
-                        int v2 = (list[2].equals("old"))? 0: Integer.parseInt(list[2]);
-                        jungle.get(jungle.size()-1).setOperation(v1, v2,  op);
-                        break;
-                    case 3:
-                        jungle.get(jungle.size()-1).setDivisor(Integer.parseInt(data.substring(21)));
-                        break;
-                    case 4:
-                        true_monkey = Integer.parseInt(data.substring(29));
-                        break;
-                    case 5:
+                        int v2 = (list[2].equals("old")) ? 0 : Integer.parseInt(list[2]);
+                        jungle.get(jungle.size() - 1).setOperation(v1, v2, op);
+                    }
+                    case 3 -> jungle.get(jungle.size() - 1).setDivisor(Integer.parseInt(data.substring(21)));
+                    case 4 -> true_monkey = Integer.parseInt(data.substring(29));
+                    case 5 -> {
                         false_monkey = Integer.parseInt(data.substring(30));
                         rcs.push(new ReceiverConfig(false_monkey, true_monkey));
-                        break;
-                    default:
-                        line_count = -1;
-                        break;
+                    }
+                    default -> line_count = -1;
                 }
                 line_count++;
             }
