@@ -90,9 +90,9 @@ int main() {
                 savestate(&rope[j]);
                 if((abs(rope[j-1].i - rope[j].i) >1) || (abs(rope[j-1].j - rope[j].j)>1)){
                     move_to(&rope[j], &rope[j-1]);
-                    if(j == 9){
-                        if(grid[rope[9].i][rope[9].j]==0) {
-                            grid[rope[9].i][rope[9].j] = 1; sum++;
+                    if(j == KNOTS-1){
+                        if(grid[rope[KNOTS-1].i][rope[KNOTS-1].j]==0) {
+                            grid[rope[KNOTS-1].i][rope[KNOTS-1].j] = 1; sum++;
                         }
                     }
                 }
