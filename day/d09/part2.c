@@ -2,8 +2,18 @@
 #include <stdlib.h>
 
 struct Point {
-    int i, j;
+    int i, j, old_i, old_j;
 };
+
+void savestate(struct Point *p){
+    p->old_i = p->i;
+    p->old_j = p->j;
+}
+
+void move_to(struct Point *from, struct Point *to){
+    from->i = to->old_i;
+    from->j = to->old_j;
+}
 
 int main() {
     char dir;
@@ -49,6 +59,12 @@ int main() {
     T.j = H.j = -min_j;
     rewind(f);
     int line_count = 0;
+    const int KNOTS = 10;
+    struct Point rope[KNOTS];
+    for(int i = 0; i < KNOTS; i++){
+        rope[i].i = -min_i;
+        rope[i].j = -min_j;
+    }
     while(!feof(f)) {
         line_count++;
         fscanf(f,"%c %d\n", &dir, &amount);
@@ -66,15 +82,21 @@ int main() {
                 di = 0; dj = 1;
                 break;
         }
+
         for(int i = 0; i < amount; i++){
-            Hp.i = H.i + di; Hp.j = H.j + dj;
-            if((abs(Hp.i - T.i) >1) || (abs(Hp.j - T.j)>1)){
-                T.i = H.i; T.j = H.j;
-                if(grid[T.i][T.j]==0) {
-                    grid[T.i][T.j] = 1; sum++;
+            savestate(&rope[0]);
+            rope[0].i += di; rope[0].j += dj;
+            for(int j = 1; j < KNOTS; j++){
+                savestate(&rope[j]);
+                if((abs(rope[j-1].i - rope[j].i) >1) || (abs(rope[j-1].j - rope[j].j)>1)){
+                    move_to(&rope[j], &rope[j-1]);
+                    if(j == 9){
+                        if(grid[rope[9].i][rope[9].j]==0) {
+                            grid[rope[9].i][rope[9].j] = 1; sum++;
+                        }
+                    }
                 }
             }
-            H.i = Hp.i; H.j = Hp.j;
         }
     }
     printf("Visited positions: %d\n", sum);
