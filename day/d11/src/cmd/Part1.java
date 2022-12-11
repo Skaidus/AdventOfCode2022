@@ -61,6 +61,7 @@ public class Part1 {
                     max_2nd = temp;
                 }
             }
+
             System.out.println("Monkey business: " + max_1st*max_2nd);
 
         } catch (FileNotFoundException e) {
