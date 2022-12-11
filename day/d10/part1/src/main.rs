@@ -12,7 +12,7 @@ where P: AsRef<Path>, {
 
 fn main() {
     
-    if let Ok(lines) = read_lines("input.txt") {
+    if let Ok(lines) = read_lines("../input.txt") {
         // Consumes the iterator, returns an (Optional) String
         let (mut sum, mut value, mut line_count) = (0,1,0);
         for line in lines {
