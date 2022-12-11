@@ -13,10 +13,9 @@ public class Part1 {
         try {
             File myObj = new File("input.txt");
             Scanner myReader = new Scanner(myObj);
-            int line_count = 0, true_monkey = 0, false_monkey = 0;
+            int line_count = 0, true_monkey = 0, false_monkey;
             Stack<ReceiverConfig> rcs = new Stack<>();
-            ReceiverConfig rc;
-            String[] list = null;
+            String[] list;
             ArrayList<Monkey> jungle = new ArrayList<>();
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
@@ -53,7 +52,7 @@ public class Part1 {
                     monkey.throw_item();
                 }
             }
-            int max_1st = 0, max_2nd = 0, temp = 0;
+            int max_1st = 0, max_2nd = 0, temp;
             for(Monkey m : jungle){
                 temp = m.getInspections();
                 if(temp > max_1st){
