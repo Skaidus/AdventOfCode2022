@@ -17,6 +17,7 @@ public class Part1 {
             Stack<ReceiverConfig> rcs = new Stack<>();
             String[] list;
             ArrayList<Monkey> jungle = new ArrayList<>();
+            int ZZn = 1;
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 switch (line_count) {
@@ -32,7 +33,11 @@ public class Part1 {
                         int v2 = (list[2].equals("old")) ? 0 : Integer.parseInt(list[2]);
                         jungle.get(jungle.size() - 1).setOperation(v1, v2, op);
                     }
-                    case 3 -> jungle.get(jungle.size() - 1).setDivisor(Integer.parseInt(data.substring(21)));
+                    case 3 -> {
+                        int div = Integer.parseInt(data.substring(21));
+                        jungle.get(jungle.size() - 1).setDivisor(div);
+                        ZZn*=div;
+                    }
                     case 4 -> true_monkey = Integer.parseInt(data.substring(29));
                     case 5 -> {
                         false_monkey = Integer.parseInt(data.substring(30));
@@ -46,13 +51,14 @@ public class Part1 {
             for(int i = jungle.size()-1; i >= 0; i--){
                 cf = rcs.pop();
                 jungle.get(i).setMonkeys(jungle.get(cf.true_monkey), jungle.get(cf.false_monkey));
+                jungle.get(i).setRing(ZZn);
             }
-            for(int i = 0; i < 20; i++){
+            for(int i = 0; i < 10000; i++){
                 for (Monkey monkey : jungle) {
                     monkey.throw_item();
                 }
             }
-            int max_1st = 0, max_2nd = 0, temp;
+            long max_1st = 0, max_2nd = 0, temp;
             for(Monkey m : jungle){
                 temp = m.getInspections();
                 if(temp > max_1st){

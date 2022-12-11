@@ -4,11 +4,11 @@ import java.util.LinkedList;
 
 public class Monkey
 {
-    LinkedList<Integer> items;
+    LinkedList<Long> items;
     Operation op;
-    int divisor;
+    long divisor, ZZn;
     Monkey TrueMonkey, FalseMonkey;
-    int inspections = 0;
+    long inspections = 0;
 
     public Monkey(){
         items = new LinkedList<>();
@@ -27,24 +27,28 @@ public class Monkey
         this.divisor = divisor;
     }
 
+    public void setRing(int ZZn){
+        this.ZZn = ZZn;
+    }
+
     public void throw_item(){
         while(!this.items.isEmpty()){
-            final int old_v = items.remove();
-            final int new_v = op.apply(old_v)/3;
+            final long old_v = items.remove();
+            final long new_v = op.apply(old_v) % ZZn;
             this.getReceiver(new_v).receive_item(new_v);
             inspections++;
         }
     }
 
-    public int getInspections(){
+    public long getInspections(){
         return this.inspections;
     }
 
-    public void receive_item(int item){
+    public void receive_item(long item){
         this.items.add(item);
     }
 
-    private Monkey getReceiver(final int item){
+    private Monkey getReceiver(final long item){
         return (item % divisor == 0)? TrueMonkey : FalseMonkey;
     }
 }
