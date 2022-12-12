@@ -2,18 +2,8 @@
 #include <stdlib.h>
 
 struct Point {
-    int i, j, old_i, old_j;
+    int i, j;
 };
-
-void savestate(struct Point *p){
-    p->old_i = p->i;
-    p->old_j = p->j;
-}
-
-void move_to(struct Point *from, struct Point *to){
-    from->i = to->old_i;
-    from->j = to->old_j;
-}
 
 int main() {
     char dir;
@@ -82,14 +72,18 @@ int main() {
                 di = 0; dj = 1;
                 break;
         }
-
+        int vi, vj;
         for(int i = 0; i < amount; i++){
-            savestate(&rope[0]);
+
             rope[0].i += di; rope[0].j += dj;
             for(int j = 1; j < KNOTS; j++){
-                savestate(&rope[j]);
                 if((abs(rope[j-1].i - rope[j].i) >1) || (abs(rope[j-1].j - rope[j].j)>1)){
-                    move_to(&rope[j], &rope[j-1]);
+                    vi = rope[j-1].i - rope[j].i;
+                    vj = rope[j-1].j - rope[j].j;
+                    if(abs(vi)==2) vi /=2;
+                    if(abs(vj)==2) vj /=2;
+                    rope[j].i += vi;
+                    rope[j].j += vj;
                     if(j == KNOTS-1){
                         if(grid[rope[KNOTS-1].i][rope[KNOTS-1].j]==0) {
                             grid[rope[KNOTS-1].i][rope[KNOTS-1].j] = 1; sum++;
