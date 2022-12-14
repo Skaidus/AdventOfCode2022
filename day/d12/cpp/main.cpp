@@ -62,11 +62,11 @@ int aStarSearch(char grid[][COL], Cell start, Cell dest){
             int ip, jp, gp, hp, fp;
             ip = i + v.i;
             jp = j + v.j;
-            if((ip >= 0) && (ip < ROW) && (jp >= 0) && (jp < COL)){
+            if((ip >= 0) && (ip < ROW) && (jp >= 0) && (jp < COL)&& ( grid[ip][jp] - grid[i][j] <= 1)){
                 if((ip == dest.i) && (jp == dest.j)) {
-                    return p.f;
+                    return p.f + 1;
                 }
-                else if((!closedList[ip][jp]) && ( grid[ip][jp] - grid[i][j] <= 1)){
+                else if(!closedList[ip][jp]){
                     gp = cellDetails[i][j].g + 1;
                     hp =  0;//abs(dest.i - ip) + abs(dest.j - jp);
                     fp = hp + gp;
