@@ -26,9 +26,9 @@ const int ROW = 41;
 
 int aStarSearch(char grid[][COL], Cell start, Cell dest){
     bool closedList[ROW][COL];
-    for(int i = 0; i < ROW; i++){
-        for(int j = 0; j < COL; j++) {
-            closedList[i][j] = false;
+    for(auto & i : closedList){
+        for(bool & j : i) {
+            j = false;
         }
     }
     cStats cellDetails[ROW][COL];
@@ -51,9 +51,7 @@ int aStarSearch(char grid[][COL], Cell start, Cell dest){
             {0, -1} // Left
     };
 
-    int asdf = 0;
     while(!openList.empty()){
-        asdf++;
         OrderedCell p = openList.top();
         openList.pop();
         i = p.i; j = p.j;
@@ -91,7 +89,6 @@ int main() {
     ifstream file("input.txt");
     if(file.is_open()){
         string line;
-        int curr = 0, max = 0;
         char grid[ROW][COL];
         int i = 0;
         int oi, oj, di, dj;
