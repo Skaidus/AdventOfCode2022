@@ -58,23 +58,21 @@ int aStarSearch(char grid[][COL], Cell start, Cell dest){
         openList.pop();
         i = p.i; j = p.j;
         closedList[i][j] = true;
+        if((i == dest.i) && (j == dest.j)) return p.f;
         for(auto v: dirs){
             int ip, jp, gp, hp, fp;
             ip = i + v.i;
             jp = j + v.j;
-            if((ip >= 0) && (ip < ROW) && (jp >= 0) && (jp < COL)&& ( grid[ip][jp] - grid[i][j] <= 1)){
-                if((ip == dest.i) && (jp == dest.j)) {
-                    return p.f + 1;
-                }
-                else if(!closedList[ip][jp]){
-                    gp = cellDetails[i][j].g + 1;
-                    hp =  0;//abs(dest.i - ip) + abs(dest.j - jp);
-                    fp = hp + gp;
-                    if((cellDetails[ip][jp].f == INT_MAX) || (cellDetails[ip][jp].f > fp)){
-                        openList.push({ip,jp,fp});
-                        cellDetails[ip][jp].f = fp;
-                        cellDetails[ip][jp].g = gp;
-                    }
+            if((ip >= 0) && (ip < ROW) && (jp >= 0) &&
+            (jp < COL) && ( grid[ip][jp] - grid[i][j] <= 1)
+            && (!closedList[ip][jp])){
+                gp = cellDetails[i][j].g + 1;
+                hp =  abs(dest.i - ip) + abs(dest.j - jp);
+                fp = hp + gp;
+                if((cellDetails[ip][jp].f == INT_MAX) || (cellDetails[ip][jp].f > fp)){
+                    openList.push({ip,jp,fp});
+                    cellDetails[ip][jp].f = fp;
+                    cellDetails[ip][jp].g = gp;
                 }
             }
         }
