@@ -39,7 +39,7 @@ fn get_units(mut grid : Vec<Vec<bool>>, column_offset : i32) -> u32 {
 
 fn main() {
     
-    if let Ok(lines) = read_lines("input.txt") {
+    if let Ok(lines) = read_lines("../input.txt") {
         // Consumes the iterator, returns an (Optional) String
         let (mut max_y, mut min_x, mut max_x) = (0, 500, 500);
         for line in lines {
@@ -57,8 +57,8 @@ fn main() {
             }
         }
         
-        let mut grid = vec![vec![false; (max_y + 1) as usize]; (max_x - min_x + 1) as usize ];
-        if let Ok(lines) = read_lines("input.txt") {
+        let mut grid = vec![vec![false; (max_y + 3) as usize]; (max_x - min_x + 1) as usize ];
+        if let Ok(lines) = read_lines("../input.txt") {
         
         for line in lines {
             if let Ok(ip) = line {
@@ -89,7 +89,6 @@ fn main() {
                 }
             }
         }
-        
         println!("Blocks: {}", get_units(grid, min_x));
     }
 
