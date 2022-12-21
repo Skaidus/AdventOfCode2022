@@ -16,11 +16,13 @@ fn get_units(mut grid : Vec<Vec<bool>>, column_offset : i32) -> u32 {
     let xs : i32 = grid.len() as i32; 
     let ys : i32 = grid[0].len() as i32;
     let directions = [(0,1), (-1,1), (1,1)];
-    // REFORMAR: AHORA MISMO SE CHECKEA SI BLOCKED OUT OF LIMITS
+    
     loop {
         pos = (500-column_offset,0);
         'move_block: loop {
-            if !((0<= pos.0) && (pos.0 < xs) && (0<= pos.1) && (pos.1 < ys)) {return units}
+            if pos.1 == ys-1 {
+                break
+            }
             for dir in directions{
                 let candidate = (pos.0 + dir.0, pos.1 + dir.1);
                 if !((0<= candidate.0) && (candidate.0 < xs) && (0<= candidate.1) && (candidate.1 < ys)) 
@@ -29,11 +31,11 @@ fn get_units(mut grid : Vec<Vec<bool>>, column_offset : i32) -> u32 {
                     continue 'move_block;
                 }
             }
-            grid[pos.0 as usize][pos.1 as usize] = true;
-            units+=1;
             break;
-            
         }
+        grid[pos.0 as usize][pos.1 as usize] = true;
+        units+=1;
+        if pos == (500-column_offset,0) {return units}
     }
 }
 
@@ -56,14 +58,18 @@ fn main() {
                 }
             }
         }
-        
-        let mut grid = vec![vec![false; (max_y + 3) as usize]; (max_x - min_x + 1) as usize ];
+        let factor = max_y+3;
+        let (xs, x0) = if (2*factor - 1)> (max_x - min_x + 1){
+            (2*factor - 1, 500-factor)
+        } else {
+            (max_x - min_x + 1, min_x) 
+        };
+        let mut grid = vec![vec![false; (max_y + 2) as usize]; xs as usize ];
         if let Ok(lines) = read_lines("../input.txt") {
-        
         for line in lines {
             if let Ok(ip) = line {
                 let mut corners = ip.split(" -> ")
-                .map(|p| p.split(',').map(|c| c.parse::<i32>().unwrap())).map(|mut x| ((x.next().unwrap() - min_x) as usize, x.next().unwrap() as usize)).into_iter();
+                .map(|p| p.split(',').map(|c| c.parse::<i32>().unwrap())).map(|mut x| ((x.next().unwrap() - x0) as usize, x.next().unwrap() as usize)).into_iter();
                 let mut begin  = corners.next().unwrap();
                 for corner in corners {
                     if corner.0 > 10000 {
@@ -89,7 +95,7 @@ fn main() {
                 }
             }
         }
-        println!("Blocks: {}", get_units(grid, min_x));
+        println!("Blocks: {}", get_units(grid, x0));
     }
 
         // let next_cycle = ((line_count-20)/40 + 1)*40 + 20;

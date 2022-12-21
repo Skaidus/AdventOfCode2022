@@ -16,7 +16,6 @@ fn get_units(mut grid : Vec<Vec<bool>>, column_offset : i32) -> u32 {
     let xs : i32 = grid.len() as i32; 
     let ys : i32 = grid[0].len() as i32;
     let directions = [(0,1), (-1,1), (1,1)];
-    // REFORMAR: AHORA MISMO SE CHECKEA SI BLOCKED OUT OF LIMITS
     loop {
         pos = (500-column_offset,0);
         'move_block: loop {
