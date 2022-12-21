@@ -3,5 +3,44 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": []
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "terminal": "console",
+            "name": "Debug executable 'd14'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=d14",
+                    "--package=d14"
+                ],
+                "filter": {
+                    "name": "d14",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'd14'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=d14",
+                    "--package=d14"
+                ],
+                "filter": {
+                    "name": "d14",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
 }
